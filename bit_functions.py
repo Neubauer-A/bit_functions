@@ -7,6 +7,8 @@
 6.  Reverse order of 32 bits.
 7.  Get number of 1s in binary of 32-bit x.
 8   Get the closest int with the same weight as x.
+9.  Add two 32-bit integers.
+10. Multiply two 32-bit integers.
 '''
 
 def parity(x):
@@ -64,3 +66,29 @@ def closest_same_weight(x): #8
         if ((x >> i) & 1) != ((x >> (i+1)) & 1):
             return x ^ (3 << i)
     return None
+
+def addition(x, y): #9
+    carry = False
+    for i in range(32):
+        if  not ((x & (1 << i)) | (y & (1 << i))):
+            if carry:
+                x |= (1 << i)
+                carry = False
+        elif (x & (1 << i)) & (y & (1 << i)):
+            if not carry:
+                x ^= (1 << i)
+                carry = True
+        else:
+            if carry:
+                if x & (1 << i):
+                    x ^= (1 << i)
+            else:
+                x |= (1 << i)
+    return x
+
+def multiplication(x, y): #10
+    ans = x
+    y = addition(y, -1)
+    for i in range(y):
+        ans = addition(ans, x)
+    return ans
