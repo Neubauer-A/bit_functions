@@ -1,5 +1,6 @@
 '''
-1.  Find parity of 32-bit x.
+0.  Find parity of 32-bit x.
+1.  Propagate right (e.g. '101000' becomes 101111').
 2.  Mod x by a power of 2.
 3.  Check if x is a power of two.
 4.  Swap bits (e.g. '10101' becomes '11100' when we swap indices 0 and 3).
@@ -11,7 +12,7 @@
 10. Multiply two 32-bit integers.
 '''
 
-def parity(x):
+def parity(x): #0
     x ^= x >> 32
     x ^= x >> 16
     x ^= x >> 8
